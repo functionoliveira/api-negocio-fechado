@@ -10,13 +10,22 @@ from django.utils import timezone
 
 from datetime import datetime, timedelta, timezone, tzinfo
 
+STATE = (
+    (1, "Recente"),
+    (2, "Com proposta"),
+    (3, "Em negociação"),
+    (4, "Falta assinar"),
+    (5, "Em execução"),
+    (6, "Finalizado"),
+)
+
 class Offer(models.Model):
     id = models.AutoField(primary_key=True)
-    title = models.CharField("Senha", max_length=255)
-    description = models.CharField("Senha", max_length=255)
-    worker = models.CharField("Senha", max_length=255)
-    price = models.CharField("Senha", max_length=255)
-    state = models.CharField("Senha", max_length=255)
+    title = models.CharField("Título", max_length=255)
+    description = models.CharField("Descrição", max_length=255)
+    worker = models.ForeignKey("User", on_delete=models.PROTECT)
+    price = models.CharField("Valor", max_length=255)
+    state = models.CharField("Estado", choices=STATE, max_length=255)
   
     def __str__(self):
         return self.title

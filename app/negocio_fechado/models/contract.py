@@ -10,9 +10,17 @@ from django.utils import timezone
 
 from datetime import datetime, timedelta, timezone, tzinfo
 
+STATE = (
+    (1, "Aberto"),
+    (2, "Fechado"),
+    (3, "Aceito pelo consumidor"),
+    (4, "Aceito pelo prestador"),
+    (5, "Aceito por ambos")
+)
+
 class Contract(models.Model):
     id = models.AutoField(primary_key=True)
-    offer = models.CharField("Senha", max_length=255)
-    needs = models.CharField("Senha", max_length=255)
-    rules = models.CharField("Senha", max_length=255)
-    state = models.CharField("Senha", max_length=255)
+    offer = models.ForeignKey("Offer", on_delete=models.PROTECT, blank=True, null=True)
+    needs = models.ForeignKey("Needs", on_delete=models.PROTECT, blank=True, null=True)
+    rules = models.TextField("Regras", null=True, blank=True)
+    state = models.CharField("Estado", choices=STATE, max_length=255)

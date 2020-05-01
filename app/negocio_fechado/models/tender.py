@@ -10,14 +10,20 @@ from django.utils import timezone
 
 from datetime import datetime, timedelta, timezone, tzinfo
 
+STATE = (
+    (1, "Enviada"),
+    (2, "Aceita"),
+    (3, "Recusada")
+)
+
 class Tender(models.Model):
     id = models.AutoField(primary_key=True)
-    title = models.CharField("Senha", max_length=255)
-    description = models.CharField("Senha", max_length=255)
-    offer = models.CharField("Senha", max_length=255)
-    needs = models.CharField("Senha", max_length=255)
-    price = models.CharField("Senha", max_length=255)
-    state = models.CharField("Senha", max_length=255)
+    title = models.CharField("Título", max_length=255)
+    description = models.CharField("Descrição", max_length=255)
+    offer = models.ForeignKey("Offer", on_delete=models.PROTECT, blank=True, null=True)
+    needs = models.ForeignKey("Needs", on_delete=models.PROTECT, blank=True, null=True)
+    price = models.CharField("Valor", max_length=255)
+    state = models.CharField("Senha", choices=STATE, max_length=255)
   
     def __str__(self):
         return self.title

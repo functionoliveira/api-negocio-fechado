@@ -10,15 +10,21 @@ from django.utils import timezone
 
 from datetime import datetime, timedelta, timezone, tzinfo
 
+USER_TYPE = (
+    ('WORKER', 'Prestador de serviço.'),
+    ('CONSUMER', 'Consumidor.')
+)
+
 class User(models.Model):
     id = models.AutoField(primary_key=True)
-    email = models.CharField("Email") 
-    password = models.CharField("Senha", max_length=255)
-    first_name = models.CharField("Nome", max_length=255)
-    last_name = models.CharField("Sobrenome", max_length=255)
-    photo = models.CharField("Foto do perfil", max_length=255)
-    age = models.CharField("Foto do perfil", max_length=255)
-    cpf = models.CharField("Foto do perfil", max_length=255)
+    email = models.EmailField("Email", max_length=255) 
+    password = models.CharField("Senha", max_length=32)
+    first_name = models.CharField("Nome", max_length=45)
+    last_name = models.CharField("Sobrenome", max_length=45)
+    photo = models.FileField("Foto do perfil", max_length=255)
+    birth_date = models.DateField("Idade", max_length=255)
+    cpf = models.CharField("CPF", max_length=14)
+    type = models.CharField("Tipo", choices=USER_TYPE, max_length=255)
 
     def __str__(self):
         return "%s %s" % (self.first_name, self.last_name)
