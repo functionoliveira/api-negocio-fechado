@@ -20,7 +20,8 @@ STATE = (
 
 class Contract(models.Model):
     id = models.AutoField(primary_key=True)
-    offer = models.ForeignKey("Offer", on_delete=models.PROTECT, blank=True, null=True)
-    needs = models.ForeignKey("Needs", on_delete=models.PROTECT, blank=True, null=True)
+    tender = models.ForeignKey("Tender", on_delete=models.PROTECT, blank=True, null=True)
+    hired = models.ForeignKey("User", related_name="hired", on_delete=models.PROTECT)
+    contractor = models.ForeignKey("User", related_name="contractor", on_delete=models.PROTECT)
     rules = models.TextField("Regras", null=True, blank=True)
     state = models.CharField("Estado", choices=STATE, max_length=255)

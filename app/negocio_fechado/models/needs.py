@@ -25,6 +25,7 @@ class Needs(models.Model):
     consumer = models.ForeignKey("User", on_delete=models.PROTECT)
     price = models.CharField("Valor", max_length=255)
     state = models.CharField("Estado", choices=STATE, max_length=255)    
+    files = models.FileField("Anexos", upload_to='attachments/%Y/%m/%d/', null=True, blank=True)
 
     def __str__(self):
         return self.title

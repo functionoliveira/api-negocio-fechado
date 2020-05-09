@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'debug_toolbar',
 ]
@@ -57,14 +58,10 @@ MIDDLEWARE = [
 CORS_ORIGIN_WHITELIST = (
     'http://127.0.0.1',
     'http://192.168.0.3',
+    'http://192.168.0.3:8080',
     'http://localhost',
     'http://localhost:8080',
     'http://localhost:8000',
-    'http://localhost:8080',
-	'http://localhost:8081',
-    'http://localhost:8082',
-	'http://localhost:9080',
-    'http://131.255.126.68'    
 )
 
 
@@ -152,3 +149,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(DATA_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(DATA_DIR, 'media')

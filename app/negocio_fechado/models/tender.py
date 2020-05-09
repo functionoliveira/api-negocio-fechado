@@ -22,6 +22,7 @@ class Tender(models.Model):
     description = models.CharField("Descrição", max_length=255)
     offer = models.ForeignKey("Offer", on_delete=models.PROTECT, blank=True, null=True)
     needs = models.ForeignKey("Needs", on_delete=models.PROTECT, blank=True, null=True)
+    proposer = models.ForeignKey("User", on_delete=models.PROTECT)
     price = models.CharField("Valor", max_length=255)
     state = models.CharField("Senha", choices=STATE, max_length=255)
   

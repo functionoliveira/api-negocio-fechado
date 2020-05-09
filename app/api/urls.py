@@ -2,6 +2,7 @@ from django.conf.urls import url
 from django.urls import path, include
 from django.contrib import admin
 from rest_framework import routers
+from rest_framework_simplejwt.views import TokenRefreshView
 
 #imports das views
 from .views import ( 
@@ -10,7 +11,8 @@ from .views import (
     ContractViewSet,
     NeedsViewSet,
     UserViewSet, 
-    ExemploAPIView
+    ExemploAPIView,
+    CustomTokenObtainPairView
 )
 
 router = routers.DefaultRouter()
@@ -23,5 +25,7 @@ router.register(r'usuario', UserViewSet, base_name='usuario')
 urlpatterns = [
     path('', include(router.urls)),
     path('example/', ExemploAPIView.as_view(), name="example"),
+    path('auth/credentials/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     url(r'^admin/', admin.site.urls),
 ]
