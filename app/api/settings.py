@@ -21,7 +21,7 @@ DATA_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'k7e$)yeg44$5fw@8axnyp#6rcgr3=28oorjj!mo&#q6l_1c)oy'
+SECRET_KEY = 'Xp2s5v8y/B?E(H+MbQeThVmYq3t6w9z$C&F)J@NcRfUjXnZr4u7x!A%D*G-KaPdS'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -54,7 +54,6 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-
 CORS_ORIGIN_WHITELIST = (
     'http://127.0.0.1',
     'http://192.168.0.3',
@@ -63,7 +62,6 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:8080',
     'http://localhost:8000',
 )
-
 
 REST_FRAMEWORK = {
      'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -74,12 +72,6 @@ REST_FRAMEWORK = {
     # 'DEFAULT_RENDERER_CLASSES': (
     #     'rest_framework.renderers.JSONRenderer',
     # )
-}
-
-SIMPLE_JWT = {
-    'ALGORITHM': 'HS256',
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30), #Ajustar antes de ir para producao
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1), 
 }
 
 ROOT_URLCONF = 'api.urls'
@@ -129,7 +121,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SIMPLE_JWT = {
+    'ALGORITHM': 'HS256',
+    'USER_ID_FIELD': 'cpf',
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=120), #Ajustar antes de ir para producao
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1), 
+}
 
+AUTH_USER_MODEL = 'negocio_fechado.User'
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 

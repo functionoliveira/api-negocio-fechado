@@ -16,14 +16,23 @@ class OfferSerializer(serializers.ModelSerializer):
         model = Offer
         fields = ('__all__')
 
+class ProposerSerializer(serializers.ModelSerializer):
+    full_name = serializers.ReadOnlyField()
+
+    class Meta:
+        model = User
+        fields = ('id', 'full_name', 'cpf', 'type', 'email')
+
 class TenderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tender
         fields = ('__all__')
 
-class ContractSerializer(serializers.ModelSerializer):
+class ReadTenderSerializer(serializers.ModelSerializer):
+    proposer = ProposerSerializer(read_only=True)
+
     class Meta:
-        model = Contract
+        model = Tender
         fields = ('__all__')
 
 class NeedsSerializer(serializers.ModelSerializer):
@@ -32,6 +41,8 @@ class NeedsSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
 class UserSerializer(serializers.ModelSerializer):
+    full_name = serializers.ReadOnlyField()
+
     class Meta:
         model = User
         fields = ('__all__')
@@ -43,6 +54,15 @@ class UserSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data): 
         validated_data['password'] = make_password(validated_data['password'])
         return super().update(instance, validated_data)
+
+class ContractSerializer(serializers.ModelSerializer):
+    tender = TenderSerializer()
+    hired = ProposerSerializer()
+    contractor = ProposerSerializer()
+
+    class Meta:
+        model = Contract
+        fields = ('__all__')
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     """
@@ -63,8 +83,14 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
     @classmethod
     def get_token(cls, user):
-        print("get_token inicio")
         token = super().get_token(user)
-        print("get_token")
+        # Passando informações do usuário para o toke
+        serializer = UserSerializer(user)
+        token['user_id'] = serializer.data['id']
+        token['email'] = serializer.data['email']
+        token['full_name'] = serializer.data['full_name']
+        token['photo'] = serializer.data['photo']
+        token['birth_date'] = serializer.data['birth_date']
+        token['cpf'] = serializer.data['cpf']
+        token['type'] = serializer.data['type']
         return token
-

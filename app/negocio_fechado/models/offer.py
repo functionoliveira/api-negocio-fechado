@@ -12,11 +12,10 @@ from datetime import datetime, timedelta, timezone, tzinfo
 
 STATE = (
     (1, "Recente"),
-    (2, "Com proposta"),
-    (3, "Em negociação"),
-    (4, "Falta assinar"),
-    (5, "Em execução"),
-    (6, "Finalizado"),
+    (2, "Em negociação"),
+    (3, "Falta assinar"),
+    (4, "Assinado"),
+    (5, "Finalizado"),
 )
 
 class Offer(models.Model):
