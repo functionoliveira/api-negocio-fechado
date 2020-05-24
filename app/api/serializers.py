@@ -9,7 +9,12 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.hashers import make_password
 
 # models
-from negocio_fechado.models import Offer, Tender, Contract, Needs, User
+from negocio_fechado.models import Offer, Tender, Contract, Needs, User, File
+
+class FileSerializer(serializers.ModelSerializer):
+     class Meta:
+        model = File
+        fields = ('__all__')
 
 class OfferSerializer(serializers.ModelSerializer):
     class Meta:
@@ -56,9 +61,9 @@ class UserSerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 class ContractSerializer(serializers.ModelSerializer):
-    tender = TenderSerializer()
-    hired = ProposerSerializer()
-    contractor = ProposerSerializer()
+    tender = TenderSerializer(read_only=True)
+    hired = ProposerSerializer(read_only=True)
+    contractor = ProposerSerializer(read_only=True)
 
     class Meta:
         model = Contract

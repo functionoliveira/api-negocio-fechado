@@ -43,8 +43,9 @@ class User(AbstractBaseUser, models.Model):
     password = models.CharField("Senha", max_length=32)
     first_name = models.CharField("Nome", max_length=45)
     last_name = models.CharField("Sobrenome", max_length=45)
-    photo = models.FileField("Foto do perfil", blank=True, null=True, max_length=255)
+    photo = models.FileField("Foto do perfil", upload_to='avatar/%Y/%m/%d/', blank=True, null=True)
     birth_date = models.DateField("Data de nascimento", max_length=255)
+    address = models.CharField("Endereço", max_length=160)
     cpf = models.CharField("CPF", unique=True, validators=[UnicodeUsernameValidator()], max_length=14)
     type = models.CharField("Tipo", choices=USER_TYPE, max_length=255)
 
