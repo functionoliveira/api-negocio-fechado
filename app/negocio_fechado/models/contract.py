@@ -15,7 +15,9 @@ STATE = (
     (2, "Fechado"),
     (3, "Aceito pelo consumidor"),
     (4, "Aceito pelo prestador"),
-    (5, "Aceito por ambos")
+    (5, "Aceito por ambos"),
+    (6, "Pago"),
+    (7, "Finalizado")
 )
 
 class Contract(models.Model):

@@ -67,8 +67,8 @@ class ContractViewSet(viewsets.ModelViewSet):
     @action(methods=['put'], detail=False, url_path='(?P<contract_pk>.+)/contratante/(?P<contractor_pk>.+)/aceitar', url_name='aceitar_contrato')
     def contractor_accept(self, request, contract_pk=None, contractor_pk=None):
         try:
-            ContractService.contractor_accept_contract(contract_pk, contractor_pk)
-            return Response(status.HTTP_200_OK)
+            state = ContractService.contractor_accept_contract(contract_pk, contractor_pk)
+            return Response(state, status.HTTP_200_OK)
         except:
             print(traceback.format_exc())
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -76,8 +76,8 @@ class ContractViewSet(viewsets.ModelViewSet):
     @action(methods=['put'], detail=False, url_path='(?P<contract_pk>.+)/contratado/(?P<hired_pk>.+)/aceitar', url_name='aceitar_contrato')
     def hired_accept(self, request, contract_pk=None, hired_pk=None):
         try:
-            ContractService.hired_accept_contract(contract_pk, hired_pk)
-            return Response(status.HTTP_200_OK)
+            state = ContractService.hired_accept_contract(contract_pk, hired_pk)
+            return Response(state, status.HTTP_200_OK)
         except:
             print(traceback.format_exc())
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)

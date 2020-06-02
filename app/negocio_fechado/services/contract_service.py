@@ -8,6 +8,7 @@ class ContractService:
         else:
             contract.state = 3
         contract.save()
+        return contract.state
     
     def hired_accept_contract(contract_pk, hired_pk):
         contract = Contract.objects.get(pk=contract_pk)
@@ -16,4 +17,5 @@ class ContractService:
         else:
             contract.state = 4
         contract.save()
+        return contract.state
             
