@@ -6,7 +6,7 @@ reportlab==3.5.*
 django-ipware==2.1.*
 boto3
 requests==2.23.0
-Django==2.2.13
+Django==2.2.22
 
 djangorestframework-simplejwt==4.4.0
 django-cors-headers==3.2.1
